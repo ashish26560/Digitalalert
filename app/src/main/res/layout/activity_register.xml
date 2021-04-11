@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#9EE8EAF6"
+    tools:context=".RegisterActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        app:title="Create New Account"
+        app:titleTextColor="#FFFFFF"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#29AC9F"
+        android:fitsSystemWindows="true" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="30dp">
+
+
+
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:text="Welcome-->
+<!--                                 To-->
+<!--                                 Digital Alert System"-->
+<!--        android:textSize="30dp"-->
+<!--        android:textStyle="bold|italic"-->
+
+<!--        android:gravity="center"-->
+<!--        android:textColor="#E3DFDF"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="50dp"-->
+<!--        android:clickable="false"-->
+<!--        />-->
+
+    <EditText
+        android:layout_width="match_parent"
+        android:id="@+id/e1"
+        android:layout_marginTop="231dp"
+        android:hint="Enter Email"
+        android:textColor="#1E0F0F"
+        android:textColorHint="#1E0F0F"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:id="@+id/e2"
+        android:hint="Create Password"
+
+        android:textColor="#1E0F0F"
+        android:textColorHint="#1E0F0F"
+        android:inputType="textPassword"
+        android:layout_below="@+id/e1"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:id="@+id/e3"
+        android:hint="Re-enter Password"
+        android:inputType="textPassword"
+
+        android:textColor="#1E0F0F"
+        android:textColorHint="#1E0F0F"
+        android:layout_below="@+id/e2"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_below="@+id/e2"
+        android:id="@+id/Register"
+        android:background="#970C0A0C"
+        android:layout_marginTop="90dp"
+        android:text="Register"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        android:layout_height="wrap_content"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/RegLogin"
+        android:layout_below="@+id/Register"
+        android:layout_marginTop="13dp"
+        android:textColor="#FAF6F6"
+        android:gravity="center"
+        android:textAllCaps="false"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Have an Account?"
+
+            android:textColor="#1E0F0F"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Log in"
+
+            android:textColor="#F00F276C"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "146780996381",
+    "firebase_url": "https://digitalalertsystem-aaaa0.firebaseio.com",
+    "project_id": "digitalalertsystem-aaaa0",
+    "storage_bucket": "digitalalertsystem-aaaa0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:146780996381:android:7e6fbf597269b9cbba57f4",
+        "android_client_info": {
+          "package_name": "com.example.digitalalertsystem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "146780996381-jurmdc3u9ju88hfs44spaga5v159qf87.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCp70gFTGSlZ0rtVWeIHv9Uc_uAylY0iU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "146780996381-jurmdc3u9ju88hfs44spaga5v159qf87.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
