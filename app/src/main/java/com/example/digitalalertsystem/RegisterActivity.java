@@ -1,6 +1,7 @@
 package com.example.digitalalertsystem;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -16,13 +17,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    Button Register;
-    LinearLayout Login;
-    EditText email, password, repassword;
-    FirebaseAuth auth;
+    public Button Register;
+    public LinearLayout Login;
+    public EditText Email, Password, ReEnterPassword,FullName,PhoneNo;
+    public FirebaseAuth Auth;
 
 
     @Override
@@ -33,32 +35,62 @@ public class RegisterActivity extends AppCompatActivity {
 //        View v = inflater.inflate(R.layout.activity_register, null, false);
 //        drawer.addView(v, 0);
 
-        Register = findViewById(R.id.Register);
-        Login = findViewById(R.id.RegLogin);
-        email = findViewById(R.id.e1);
-        password = findViewById(R.id.e2);
-        repassword = findViewById(R.id.e3);
-        auth = FirebaseAuth.getInstance();
+        FullName = findViewById(R.id.fullNametxt);
+        PhoneNo = findViewById(R.id.phoneNotxt);
+        Register = findViewById(R.id.registerbtn);
+        Login = findViewById(R.id.loginbtn);
+        Email = findViewById(R.id.emailtxt);
+        Password = findViewById(R.id.passwordtxt);
+        ReEnterPassword = findViewById(R.id.reEnterPasswordtxt);
+        Auth = FirebaseAuth.getInstance();
 
         Register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = email.getText().toString();
-                String pass = password.getText().toString();
-                String cpass = repassword.getText().toString();
 
-                if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(pass) && !TextUtils.isEmpty(cpass)) {
-                    if (pass.equals(cpass)) {
-                        auth.createUserWithEmailAndPassword(name, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("Remember", "false");
+                editor.apply();
+
+                final String fullname = FullName.getText().toString().trim();
+                final String phoneNo = PhoneNo.getText().toString().trim();
+                final String email= Email.getText().toString().trim();
+                String password = Password.getText().toString().trim();
+                String reEnterPassword = ReEnterPassword.getText().toString().trim();
+
+                if (!TextUtils.isEmpty(fullname) && !TextUtils.isEmpty(phoneNo) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(reEnterPassword)) {
+                    if (password.equals(reEnterPassword)) {
+                        //create authantication with email and password
+                        Auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    auth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    //store value in the database if task is successfull
+
+                                    User user = new User(fullname,phoneNo,email);
+                                    FirebaseDatabase.getInstance().getReference("Users")
+                                            .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                            .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+
+                                            if(task.isSuccessful()){
+                                                Toast.makeText(RegisterActivity.this, "User has been Register successfully", Toast.LENGTH_SHORT).show();
+                                            }
+                                            else {
+                                                Toast.makeText(RegisterActivity.this, "Failed to Register! Try again", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+                                    Auth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
 
                                             if (task.isSuccessful()) {
-                                                auth.signOut();
+
+                                                //Auto signout if task is successfull
+                                                Auth.signOut();
                                                 Toast.makeText(RegisterActivity.this, "please check ur Email", Toast.LENGTH_SHORT).show();
                                                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                                 startActivity(intent);

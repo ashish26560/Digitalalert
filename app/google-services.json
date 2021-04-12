@@ -8,12 +8,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:146780996381:android:7e6fbf597269b9cbba57f4",
+        "mobilesdk_app_id": "1:146780996381:android:8ca999f7c403d895ba57f4",
         "android_client_info": {
           "package_name": "com.example.digitalalertsystem"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "146780996381-bjq4ro0q0l7tss719bg5k1jn3oe3s8o3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.digitalalertsystem",
+            "certificate_hash": "67b7710419b34837ad0c88ed7622f86cfda9b49c"
+          }
+        },
         {
           "client_id": "146780996381-jurmdc3u9ju88hfs44spaga5v159qf87.apps.googleusercontent.com",
           "client_type": 3

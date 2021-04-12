@@ -16,6 +16,9 @@
     <item android:id="@+id/delaccount"
 
         android:title="delete account">
+    </item> <item android:id="@+id/gmap"
+
+        android:title="gmap">
     </item>
 </group>
 

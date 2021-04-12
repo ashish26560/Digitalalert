@@ -25,13 +25,12 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
 
-    Button login;
-    EditText email,password;
-    TextView reset;
-    FirebaseAuth auth;
-    LinearLayout register;
-
-    CheckBox remember;
+    Button Login;
+    EditText Email, Password;
+    TextView Forgetpassword;
+    FirebaseAuth Auth;
+    LinearLayout SignUp;
+    CheckBox Remember;
 
 
     @Override
@@ -44,17 +43,16 @@ public class LoginActivity extends AppCompatActivity {
 //        drawer.addView(v, 0);
 
 
-        login=findViewById(R.id.Register);
-        email=findViewById(R.id.e1);
-        password=findViewById(R.id.e2);
-        register=findViewById(R.id.SignUp);
-        reset=findViewById(R.id.btn3);
-
-        remember=findViewById(R.id.remember);
+        Login=findViewById(R.id.loginbtn);
+        Email =findViewById(R.id.emailtxt);
+        Password =findViewById(R.id.passwordtxt);
+        SignUp =findViewById(R.id.SignUpbtn);
+        Forgetpassword =findViewById(R.id.forgetpasswordtxt);
+        Remember =findViewById(R.id.rememberme);
 
 //      geting the value of shared prefrences
         SharedPreferences preferences= getSharedPreferences("checkbox",MODE_PRIVATE);
-        String checkbox=preferences.getString("remember","");
+        String checkbox=preferences.getString("Remember","");
 
 //if it is true it will redirect to the desired page and if false then will toast a msg
         if(checkbox.equals("true")){
@@ -67,24 +65,24 @@ public class LoginActivity extends AppCompatActivity {
         }
 
 
-        auth=FirebaseAuth.getInstance();
+        Auth =FirebaseAuth.getInstance();
 
-
-        login.setOnClickListener(new View.OnClickListener() {
+//if login button click
+        Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String pass=email.getText().toString();
-                String cpass=password.getText().toString();
+                String email= Email.getText().toString();
+                String password= Password.getText().toString();
 
-                if(!TextUtils.isEmpty(pass)  && !TextUtils.isEmpty(cpass))
+                if(!TextUtils.isEmpty(email)  && !TextUtils.isEmpty(password))
                 {
-                    auth.signInWithEmailAndPassword(pass,cpass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    Auth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
 
                             if(task.isSuccessful())
                             {
-                                if(auth.getCurrentUser().isEmailVerified())
+                                if(Auth.getCurrentUser().isEmailVerified())
                                 {
                                     Intent intent=new Intent(LoginActivity.this, mainActivity.class);
                                     startActivity(intent);
@@ -109,7 +107,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        register.setOnClickListener(new View.OnClickListener() {
+//if SignUp button Click redirect to the RegisterActivity.java
+        SignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(LoginActivity.this,RegisterActivity.class);
@@ -120,9 +119,9 @@ public class LoginActivity extends AppCompatActivity {
 
         SpannableString spannableString=new SpannableString("forget password?");
         spannableString.setSpan(new UnderlineSpan(),0,spannableString.length(),0);
-        reset.setText(spannableString);
+        Forgetpassword.setText(spannableString);
 
-        reset.setOnClickListener(new View.OnClickListener() {
+        Forgetpassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -132,20 +131,20 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 //when user checks the checkbox true value is saved in user device & false for the unchecked
-        remember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        Remember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(compoundButton.isChecked()){
                     SharedPreferences preferences=getSharedPreferences("checkbox",MODE_PRIVATE);
                     SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString("remember","true");
+                    editor.putString("Remember","true");
                     editor.apply();
                     Toast.makeText(LoginActivity.this, "checked", Toast.LENGTH_SHORT).show();
                 }else if (!compoundButton.isChecked()){
 
                     SharedPreferences preferences=getSharedPreferences("checkbox",MODE_PRIVATE);
                     SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString("remember","false");
+                    editor.putString("Remember","false");
                     editor.apply();
                     Toast.makeText(LoginActivity.this, "Unchecked", Toast.LENGTH_SHORT).show();
 

@@ -26,7 +26,7 @@ public class navigationActivity extends AppCompatActivity {
     Toolbar toolbar;
     NavigationView navView;
     FirebaseAuth auth;
-//    for creating the actionbar
+    //    for creating the actionbar
     ActionBarDrawerToggle toggle;
 
     @Override
@@ -37,16 +37,15 @@ public class navigationActivity extends AppCompatActivity {
 //        Toolbar toolbar =(Toolbar)findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 
-        auth= FirebaseAuth.getInstance();
+        auth = FirebaseAuth.getInstance();
 
-        drawer=findViewById(R.id.drawer);
-        toolbar=findViewById(R.id.toolbar);
-        navView=findViewById(R.id.navView);
+        drawer = findViewById(R.id.drawer);
+        toolbar = findViewById(R.id.toolbar);
+        navView = findViewById(R.id.navView);
         setSupportActionBar(toolbar);
 
 
-
-        toggle=new ActionBarDrawerToggle(this,drawer,toolbar,0,0);
+        toggle = new ActionBarDrawerToggle(this, drawer, toolbar, 0, 0);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -54,30 +53,34 @@ public class navigationActivity extends AppCompatActivity {
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId())
-                {
-                    case  R.id.nav_home:
+                switch (menuItem.getItemId()) {
+                    case R.id.nav_home:
 
-                        Intent intent=new Intent(navigationActivity.this,mainActivity.class);
+                        Intent intent = new Intent(navigationActivity.this, mainActivity.class);
                         startActivity(intent);
                         break;
 
-                    case  R.id.signout:
+                    case R.id.signout:
 
 //when user signout the prefrence should be false so that login page could appear
-                        SharedPreferences preferences=getSharedPreferences("checkbox",MODE_PRIVATE);
+                        SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
                         SharedPreferences.Editor editor = preferences.edit();
-                        editor.putString("remember","false");
+                        editor.putString("Remember", "false");
                         editor.apply();
 //signout the current user through firebase auth
                         auth.signOut();
-                        Intent soutintent=new Intent(navigationActivity.this,LoginActivity.class);
+                        Intent soutintent = new Intent(navigationActivity.this, LoginActivity.class);
                         startActivity(soutintent);
                         break;
 
-                    case  R.id.delaccount:
+                    case R.id.delaccount:
 
                         Deleteaccount();
+                        break;
+                    case R.id.gmap:
+
+                        Intent mintent = new Intent(navigationActivity.this, ResetpasswordActivity.class);
+                        startActivity(mintent);
                         break;
 
 
@@ -90,11 +93,11 @@ public class navigationActivity extends AppCompatActivity {
 //
 //                    }
                     //       break;
-                    case  R.id.nav_share:{
+                    case R.id.nav_share: {
 
                         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                         sharingIntent.setType("text/plain");
-                        String shareBody =  "http://play.google.com/store/apps/detail?id=" + getPackageName();
+                        String shareBody = "http://play.google.com/store/apps/detail?id=" + getPackageName();
                         String shareSub = "Try now";
                         sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, shareSub);
                         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
@@ -108,15 +111,12 @@ public class navigationActivity extends AppCompatActivity {
         });
 
 
-
-
-
     }
 
     public void Deleteaccount() {
-        AlertDialog.Builder dailog=new AlertDialog.Builder(navigationActivity.this);
+        AlertDialog.Builder dailog = new AlertDialog.Builder(navigationActivity.this);
         dailog.setTitle("Are You Sure??");
-        dailog.setMessage("Deleting this account will result in completely removing your"+
+        dailog.setMessage("Deleting this account will result in completely removing your" +
                 " account from the system and you won't be able to access the app:");
 
         dailog.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
@@ -126,15 +126,18 @@ public class navigationActivity extends AppCompatActivity {
                 auth.getCurrentUser().delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful())
-                        {
+                        if (task.isSuccessful()) {
+
+                            SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString("Remember", "false");
+                            editor.apply();
+
                             Toast.makeText(navigationActivity.this, "Account Deleted", Toast.LENGTH_SHORT).show();
-                            Intent intent=new Intent(navigationActivity.this,LoginActivity.class);
+                            Intent intent = new Intent(navigationActivity.this, LoginActivity.class);
                             startActivity(intent);
                             finish();
-                        }
-                        else
-                        {
+                        } else {
                             Toast.makeText(navigationActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -149,7 +152,7 @@ public class navigationActivity extends AppCompatActivity {
             }
         });
 
-        AlertDialog alertDialog=dailog.create();
+        AlertDialog alertDialog = dailog.create();
         alertDialog.show();
     }
 

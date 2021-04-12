@@ -23,32 +23,34 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
             android:padding="30dp">
 
             <EditText
-                android:id="@+id/e1"
+                android:id="@+id/emailtxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="250dp"
+                android:layout_marginTop="0dp"
                 android:hint="Enter Email"
                 android:textColor="#1E0F0F"
                 android:textColorHint="#1E0F0F" />
 
             <EditText
-                android:id="@+id/e2"
+                android:id="@+id/passwordtxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/e1"
+                android:layout_below="@+id/emailtxt"
                 android:hint="Enter Password"
                 android:inputType="textPassword"
                 android:textColor="#1E0F0F"
                 android:textColorHint="#1E0F0F" />
 
             <TextView
-                android:id="@+id/btn3"
+                android:id="@+id/forgetpasswordtxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/e2"
+                android:layout_below="@+id/passwordtxt"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="3dp"
                 android:text="forget password?"
@@ -56,10 +58,10 @@
                 android:textStyle="bold" />
 
             <CheckBox
-                android:id="@+id/remember"
+                android:id="@+id/rememberme"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/e2"
+                android:layout_below="@+id/passwordtxt"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:layout_marginStart="1dp"
@@ -70,10 +72,10 @@
             </CheckBox>
 
             <Button
-                android:id="@+id/Register"
+                android:id="@+id/loginbtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/btn3"
+                android:layout_below="@+id/forgetpasswordtxt"
                 android:layout_marginTop="40dp"
                 android:background="#323232"
                 android:text="Log In"
@@ -82,10 +84,10 @@
                 android:textStyle="bold" />
 
             <LinearLayout
-                android:id="@+id/SignUp"
+                android:id="@+id/SignUpbtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/Register"
+                android:layout_below="@+id/loginbtn"
                 android:layout_marginTop="7dp"
                 android:gravity="center"
                 android:textAllCaps="false"
