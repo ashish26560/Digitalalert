@@ -12,27 +12,42 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMyLocationClickListener;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
-
-public class mainActivity  extends navigationActivity implements OnMapReadyCallback {
+public class mainActivity  extends navigationActivity implements
+        OnMyLocationButtonClickListener,
+        OnMyLocationClickListener,OnMapReadyCallback {
 
 
 //    private TextView textView;
 //    private EditText editTextLat;
 //    private EditText editTextLong;
 
-    private GoogleMap mMap;
-    Button sen;
+//        Request code for location permission request.
+//
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;/*ADD*/
+//
+//    // tells weather the permission to access location is denied or not
+    private boolean permissionDenied = false;
+
+//    private GoogleMap map;/*ADD*/
+
+    private GoogleMap map;
+    Button sendButton;
 
     private LocationManager locationManager;
     private LocationListener locationListener;
@@ -54,9 +69,9 @@ public class mainActivity  extends navigationActivity implements OnMapReadyCallb
         LayoutInflater inflater = LayoutInflater.from(this);
         View v = inflater.inflate(R.layout.activity_main, null, false);
         drawer.addView(v,0);
-        sen=(Button)findViewById(R.id.snd);
+        sendButton=(Button)findViewById(R.id.sendButton);
 
-        sen.setOnClickListener(new View.OnClickListener() {
+        sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("DIGITAL ALERT", "the button is clicked");
@@ -69,11 +84,20 @@ public class mainActivity  extends navigationActivity implements OnMapReadyCallb
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.SEND_SMS}, PackageManager.PERMISSION_GRANTED);
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, PackageManager.PERMISSION_GRANTED);
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.INTERNET}, PackageManager.PERMISSION_GRANTED);
+//checking permission for sms send
+//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+//            Log.d("PLAYGROUND", "Permission is not granted, requesting");
+//            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, 123);
+//            sen.setEnabled(false);
+//        } else {
+//            Log.d("PLAYGROUND", "Permission is granted");
+//        }
     }
+
+//        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.SEND_SMS}, PackageManager.PERMISSION_GRANTED);
+//        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, PackageManager.PERMISSION_GRANTED);
+//        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.INTERNET}, PackageManager.PERMISSION_GRANTED);
+
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -85,25 +109,29 @@ public class mainActivity  extends navigationActivity implements OnMapReadyCallb
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
+//        mMap = googleMap;
+        map = googleMap;
+        map.setOnMyLocationButtonClickListener(this);
+        map.setOnMyLocationClickListener(this);
+        enableMyLocation();
 
 
 
 // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        map.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        map.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
                 try {
                     latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                    mMap.addMarker(new MarkerOptions().position(latLng).title("“My Position”"));
-
-
-
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                    map.addMarker(new MarkerOptions().position(latLng).title("My Position"));
+//
+//
+//
+                    map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 
                     phoneNumber = "9428468287";
                     myLatitude = String.valueOf(location.getLatitude());
@@ -145,6 +173,87 @@ public class mainActivity  extends navigationActivity implements OnMapReadyCallb
         }
 
     }
+
+
+        //    Enables the My Location layer if the fine location permission has been granted
+    private void enableMyLocation() {
+//        checking the permission for accessing location
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            if (map != null) {
+                map.setMyLocationEnabled(true);
+            }
+        } else {
+            // Permission to access the location is missing Show rationale and request permission
+            PermissionUtils.requestPermission(this, LOCATION_PERMISSION_REQUEST_CODE,
+                    Manifest.permission.ACCESS_FINE_LOCATION, true);
+        }
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+            Log.d("PLAYGROUND", "Permission is not granted, requesting");
+
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, 123);
+//            sen.setEnabled(false);
+      } if (ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
+            sendButton.setEnabled(true);
+            Log.d("PLAYGROUND", "Permission is granted");
+        }else{
+            sendButton.setEnabled(false);
+
+        }
+
+    }
+        /*ADD*/
+//
+    @Override
+    public boolean onMyLocationButtonClick() {
+        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
+
+        // the camera shows user's current position.
+        return false;
+    }
+///*ADD*/
+    @Override
+    public void onMyLocationClick(@NonNull Location location) {
+        Toast.makeText(this, "Current location:\n" + location, Toast.LENGTH_LONG).show();
+    }
+
+///*ADD*/
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {
+            return;
+        }
+
+        if (PermissionUtils.isPermissionGranted(permissions, grantResults, Manifest.permission.ACCESS_FINE_LOCATION)) {
+            // Enable the my location layer if the permission has been granted
+            enableMyLocation();
+        } else {
+            //if permission was denied display the missing permission error
+
+            permissionDenied = true;
+
+        }
+    }
+//
+///*ADD*/
+    @Override
+    protected void onResumeFragments() {
+        super.onResumeFragments();
+        if (permissionDenied) {
+            // Permission was not granted display error dialog.
+            showMissingPermissionError();
+            permissionDenied = false;
+        }
+    }
+//
+//
+////    Displays a dialog with error message explaining that the location permission is missing.
+///*ADD*/
+    private void showMissingPermissionError() {
+        PermissionUtils.PermissionDeniedDialog
+                .newInstance(true).show(getSupportFragmentManager(), "dialog");
+    }
+//
 }
 //
 //import android.Manifest;
@@ -178,12 +287,12 @@ public class mainActivity  extends navigationActivity implements OnMapReadyCallb
 //
 ////     Request code for location permission request.
 //
-//    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+//    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;/*ADD*/
 //
 //    // tells weather the permission to access location is denied or not
 //    private boolean permissionDenied = false;
 //
-//    private GoogleMap map;
+//    private GoogleMap map;/*ADD*/
 //
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
@@ -199,7 +308,8 @@ public class mainActivity  extends navigationActivity implements OnMapReadyCallb
 //                (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
 //        mapFragment.getMapAsync(this);
 //    }
-//
+
+/*ADD*/
 //    @Override
 //    public void onMapReady(GoogleMap googleMap) {
 //        map = googleMap;
@@ -207,7 +317,7 @@ public class mainActivity  extends navigationActivity implements OnMapReadyCallb
 //        map.setOnMyLocationClickListener(this);
 //        enableMyLocation();
 //    }
-//
+///*ADD*/
 //
 //    //    Enables the My Location layer if the fine location permission has been granted
 //    private void enableMyLocation() {
@@ -224,6 +334,7 @@ public class mainActivity  extends navigationActivity implements OnMapReadyCallb
 //        }
 //
 //    }
+/*ADD*/
 //
 //    @Override
 //    public boolean onMyLocationButtonClick() {
@@ -232,13 +343,13 @@ public class mainActivity  extends navigationActivity implements OnMapReadyCallb
 //        // the camera shows user's current position.
 //        return false;
 //    }
-//
+///*ADD*/
 //    @Override
 //    public void onMyLocationClick(@NonNull Location location) {
 //        Toast.makeText(this, "Current location:\n" + location, Toast.LENGTH_LONG).show();
 //    }
 //
-//
+///*ADD*/
 //    @Override
 //    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 //        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {
@@ -256,7 +367,7 @@ public class mainActivity  extends navigationActivity implements OnMapReadyCallb
 //        }
 //    }
 //
-//
+///*ADD*/
 //    @Override
 //    protected void onResumeFragments() {
 //        super.onResumeFragments();
@@ -269,7 +380,7 @@ public class mainActivity  extends navigationActivity implements OnMapReadyCallb
 //
 //
 ////    Displays a dialog with error message explaining that the location permission is missing.
-//
+///*ADD*/
 //    private void showMissingPermissionError() {
 //        PermissionUtils.PermissionDeniedDialog
 //                .newInstance(true).show(getSupportFragmentManager(), "dialog");
