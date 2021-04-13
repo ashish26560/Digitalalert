@@ -13,6 +13,7 @@
 
         android:title="tips and tricks">
     </item>
+
     <item android:id="@+id/delaccount"
 
         android:title="delete account">
