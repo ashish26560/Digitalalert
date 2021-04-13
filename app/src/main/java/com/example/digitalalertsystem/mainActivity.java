@@ -2,10 +2,12 @@
 package com.example.digitalalertsystem;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.util.Log;
@@ -26,29 +28,36 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
-public class mainActivity  extends navigationActivity implements
+public class mainActivity extends navigationActivity implements
         OnMyLocationButtonClickListener,
-        OnMyLocationClickListener,OnMapReadyCallback {
+        OnMyLocationClickListener, OnMapReadyCallback {
 
 
-//    private TextView textView;
-//    private EditText editTextLat;
-//    private EditText editTextLong;
+//my location button is the square button which is at the top right corner of the map
 
-//        Request code for location permission request.
-//
+    //        Request code for Phone call permission request.
+    private static final int REQUEST_PHONE_CALL = 2;
+
+    //        Request code for location permission request.
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;/*ADD*/
-//
-//    // tells weather the permission to access location is denied or not
+    //    tells weather the permission to access location is denied or not
     private boolean permissionDenied = false;
 
 //    private GoogleMap map;/*ADD*/
 
     private GoogleMap map;
     Button sendButton;
-
+    Button callButton;
+//    for geting the latitude and longitude we use location manager and location listner in oMmapReady
     private LocationManager locationManager;
     private LocationListener locationListener;
 
@@ -57,26 +66,60 @@ public class mainActivity  extends navigationActivity implements
 
     private LatLng latLng;
 
-    String phoneNumber="9428468287";
+    String phoneNumber1;
+    String phoneNumber2;
     String myLatitude;
     String myLongitude;
     String message;
+
+//    For Retrive Data from database (Niraj)
+    private FirebaseUser user;
+    private DatabaseReference reference;
+    private String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_maps);
+//        navigation drawer
         LayoutInflater inflater = LayoutInflater.from(this);
         View v = inflater.inflate(R.layout.activity_main, null, false);
-        drawer.addView(v,0);
-        sendButton=(Button)findViewById(R.id.sendButton);
+        drawer.addView(v, 0);
+//        buttons for sending location to defined number and call first emergency no
+        sendButton = (Button) findViewById(R.id.sendButton);
+        callButton = (Button) findViewById(R.id.callButton);
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("DIGITAL ALERT", "the button is clicked");
+//                Log.d("DIGITAL ALERT", "the button is clicked");
+//                sending the sms
                 SmsManager smsManager = SmsManager.getDefault();
-                smsManager.sendTextMessage(phoneNumber,null,message,null,null);
+                smsManager.sendTextMessage(phoneNumber1, null, message, null, null);
+                smsManager.sendTextMessage(phoneNumber2, null, message, null, null);
+            }
+        });
+
+        callButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                for just showing the number on diler pad it wont call until user calls it
+//                Intent intent = new Intent(Intent.ACTION_DIAL);
+//                if permission for phone call is granted the call will be initialized
+                if (ActivityCompat.checkSelfPermission(mainActivity.this, Manifest.permission.CALL_PHONE) ==
+                        PackageManager.PERMISSION_GRANTED) {
+
+                    Intent callIntent = new Intent(Intent.ACTION_CALL);
+                    callIntent.setData(Uri.parse("tel:" + phoneNumber1));//change the number.
+                    startActivity(callIntent);
+                }
+//                asking for permission
+                else {
+                    ActivityCompat.requestPermissions(mainActivity.this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_PHONE_CALL);
+
+//                    ActivityCompat.requestPermissions(mainActivity.this, new String[]{Manifest.permission.CALL_PHONE},123);
+
+                }
             }
         });
 
@@ -92,6 +135,33 @@ public class mainActivity  extends navigationActivity implements
 //        } else {
 //            Log.d("PLAYGROUND", "Permission is granted");
 //        }
+
+//        For Retreving Data from database (Niraj)
+//        getting info about the current logged in user
+        user = FirebaseAuth.getInstance().getCurrentUser();
+//        defining reference (giving destination where data is stored with user id)
+        reference = FirebaseDatabase.getInstance().getReference("Users");
+        userID = user.getUid();
+
+        reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User userprofile = snapshot.getValue(User.class);
+//                getting the value and storing in string variable
+
+                if (userprofile != null) {
+                    phoneNumber1 = userprofile.emergencyPhoneNo1;
+                    phoneNumber2 = userprofile.emergencyPhoneNo2;
+
+                    //textView2.setText(email);
+                }
+            }
+//            shows error if something went wrong
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(mainActivity.this, "Something Wrong", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 //        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.SEND_SMS}, PackageManager.PERMISSION_GRANTED);
@@ -116,7 +186,6 @@ public class mainActivity  extends navigationActivity implements
         enableMyLocation();
 
 
-
 // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-34, 151);
         map.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
@@ -133,16 +202,15 @@ public class mainActivity  extends navigationActivity implements
 //
                     map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 
-                    phoneNumber = "9428468287";
+                    //phoneNumber = "10 digit number";
                     myLatitude = String.valueOf(location.getLatitude());
                     myLongitude = String.valueOf(location.getLongitude());
 
-                     message = "https://maps.google.com/?q=" + myLatitude + ","+ myLongitude;
-                    Log.d("DIGITAL ALERT", "the button is clicked"+message);
+                    message = "https://maps.google.com/?q=" + myLatitude + "," + myLongitude;
+//                    Log.d("DIGITAL ALERT", "the button is clicked" + message);
 //                    SmsManager smsManager = SmsManager.getDefault();
 //                    smsManager.sendTextMessage(phoneNumber,null,message,null,null);
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -162,20 +230,20 @@ public class mainActivity  extends navigationActivity implements
 
             }
         };
+//        will update th latitude and longitude with location listner and location manager
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         try {
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME,MIN_DIST,locationListener);
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,MIN_TIME,MIN_DIST,locationListener);
-        }
-        catch (SecurityException e){
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DIST, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME, MIN_DIST, locationListener);
+        } catch (SecurityException e) {
             e.printStackTrace();
         }
 
     }
 
 
-        //    Enables the My Location layer if the fine location permission has been granted
+//    Enables the My Location layer if the fine location permission has been granted
     private void enableMyLocation() {
 //        checking the permission for accessing location
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -188,21 +256,25 @@ public class mainActivity  extends navigationActivity implements
             PermissionUtils.requestPermission(this, LOCATION_PERMISSION_REQUEST_CODE,
                     Manifest.permission.ACCESS_FINE_LOCATION, true);
         }
+//        permission for SMS service
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
             Log.d("PLAYGROUND", "Permission is not granted, requesting");
 
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, 123);
 //            sen.setEnabled(false);
-      } if (ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
+        }
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
             sendButton.setEnabled(true);
+//            when permission is granted for SMS then only the button will be clickable
             Log.d("PLAYGROUND", "Permission is granted");
-        }else{
+        } else {
             sendButton.setEnabled(false);
 
         }
 
     }
-        /*ADD*/
+
+    /*ADD*/
 //
     @Override
     public boolean onMyLocationButtonClick() {
@@ -211,13 +283,14 @@ public class mainActivity  extends navigationActivity implements
         // the camera shows user's current position.
         return false;
     }
-///*ADD*/
+
+    ///*ADD*/
     @Override
     public void onMyLocationClick(@NonNull Location location) {
         Toast.makeText(this, "Current location:\n" + location, Toast.LENGTH_LONG).show();
     }
 
-///*ADD*/
+    ///*ADD*/
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {
@@ -234,7 +307,8 @@ public class mainActivity  extends navigationActivity implements
 
         }
     }
-//
+
+    //
 ///*ADD*/
     @Override
     protected void onResumeFragments() {
@@ -245,7 +319,8 @@ public class mainActivity  extends navigationActivity implements
             permissionDenied = false;
         }
     }
-//
+
+    //
 //
 ////    Displays a dialog with error message explaining that the location permission is missing.
 ///*ADD*/
@@ -255,6 +330,9 @@ public class mainActivity  extends navigationActivity implements
     }
 //
 }
+/**
+ * below code is for my location button and will show blue dot with arrow pointing in direction of device
+ * the above code possess the bellow code functionality with same code*/
 //
 //import android.Manifest;
 //import android.content.pm.PackageManager;

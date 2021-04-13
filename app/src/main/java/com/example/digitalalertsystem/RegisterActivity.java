@@ -23,7 +23,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     public Button Register;
     public LinearLayout Login;
-    public EditText Email, Password, ReEnterPassword,FullName,PhoneNo;
+    public EditText Email, Password, ReEnterPassword,FullName, UserPhoneNo, EmergencyPhoneNo1, EmergencyPhoneNo2;
     public FirebaseAuth Auth;
 
 
@@ -36,12 +36,14 @@ public class RegisterActivity extends AppCompatActivity {
 //        drawer.addView(v, 0);
 
         FullName = findViewById(R.id.fullNametxt);
-        PhoneNo = findViewById(R.id.phoneNotxt);
-        Register = findViewById(R.id.registerbtn);
-        Login = findViewById(R.id.loginbtn);
         Email = findViewById(R.id.emailtxt);
+        UserPhoneNo = findViewById(R.id.userPhoneNotxt);
+        EmergencyPhoneNo1 = findViewById(R.id.emergencyPhoneNo1txt);
+        EmergencyPhoneNo2 = findViewById(R.id.emergencyPhoneNo2txt);
         Password = findViewById(R.id.passwordtxt);
         ReEnterPassword = findViewById(R.id.reEnterPasswordtxt);
+        Register = findViewById(R.id.registerbtn);
+        Login = findViewById(R.id.loginbtn);
         Auth = FirebaseAuth.getInstance();
 
         Register.setOnClickListener(new View.OnClickListener() {
@@ -54,12 +56,14 @@ public class RegisterActivity extends AppCompatActivity {
                 editor.apply();
 
                 final String fullname = FullName.getText().toString().trim();
-                final String phoneNo = PhoneNo.getText().toString().trim();
+                final String userPhoneNo = UserPhoneNo.getText().toString().trim();
                 final String email= Email.getText().toString().trim();
+                final String emergencyPhoneNo1 = EmergencyPhoneNo1.getText().toString().trim();
+                final String emergencyPhoneNo2 = EmergencyPhoneNo2.getText().toString().trim();
                 String password = Password.getText().toString().trim();
                 String reEnterPassword = ReEnterPassword.getText().toString().trim();
 
-                if (!TextUtils.isEmpty(fullname) && !TextUtils.isEmpty(phoneNo) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(reEnterPassword)) {
+                if (!TextUtils.isEmpty(fullname) && !TextUtils.isEmpty(userPhoneNo) && !TextUtils.isEmpty(emergencyPhoneNo1) && !TextUtils.isEmpty(emergencyPhoneNo2) && !TextUtils.isEmpty(email) && !TextUtils.isEmpty(password) && !TextUtils.isEmpty(reEnterPassword)) {
                     if (password.equals(reEnterPassword)) {
                         //create authantication with email and password
                         Auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -68,7 +72,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     //store value in the database if task is successfull
 
-                                    User user = new User(fullname,phoneNo,email);
+                                    User user = new User(fullname,userPhoneNo,email,emergencyPhoneNo1,emergencyPhoneNo2);
                                     FirebaseDatabase.getInstance().getReference("Users")
                                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                             .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {

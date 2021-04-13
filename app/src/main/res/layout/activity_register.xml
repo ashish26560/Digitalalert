@@ -43,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/fullNametxt"
-            android:hint="Enter Full Name"
+            android:hint="Your Full Name"
             android:textColor="#1E0F0F"
             android:textColorHint="#1E0F0F"
             />
@@ -52,7 +52,7 @@
             android:layout_width="match_parent"
             android:id="@+id/emailtxt"
             android:layout_marginTop="0dp"
-            android:hint="Enter Email"
+            android:hint="Your Email"
             android:textColor="#1E0F0F"
             android:textColorHint="#1E0F0F"
             android:layout_below="@+id/fullNametxt"
@@ -60,13 +60,35 @@
 
         <EditText
             android:layout_width="match_parent"
-            android:id="@+id/phoneNotxt"
+            android:id="@+id/userPhoneNotxt"
             android:inputType="phone"
             android:layout_marginTop="0dp"
-            android:hint="Enter Mobile Number"
+            android:hint="Your Mobile Number"
             android:textColor="#1E0F0F"
             android:textColorHint="#1E0F0F"
             android:layout_below="@+id/emailtxt"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:id="@+id/emergencyPhoneNo1txt"
+            android:inputType="phone"
+            android:layout_marginTop="0dp"
+            android:hint="Your Emergency Number 1"
+            android:textColor="#1E0F0F"
+            android:textColorHint="#1E0F0F"
+            android:layout_below="@+id/userPhoneNotxt"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:id="@+id/emergencyPhoneNo2txt"
+            android:inputType="phone"
+            android:layout_marginTop="0dp"
+            android:hint="Your Emergency Number 2"
+            android:textColor="#1E0F0F"
+            android:textColorHint="#1E0F0F"
+            android:layout_below="@+id/emergencyPhoneNo1txt"
             android:layout_height="wrap_content"/>
 
 
@@ -78,7 +100,7 @@
             android:textColor="#1E0F0F"
             android:textColorHint="#1E0F0F"
             android:inputType="textPassword"
-            android:layout_below="@+id/phoneNotxt"
+            android:layout_below="@+id/emergencyPhoneNo2txt"
             android:layout_height="wrap_content"/>
 
         <EditText
