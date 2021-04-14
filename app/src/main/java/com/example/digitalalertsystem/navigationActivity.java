@@ -45,10 +45,12 @@ public class navigationActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-        toggle = new ActionBarDrawerToggle(this, drawer, toolbar, 0, 0);
+
+        toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.open, R.string.close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -77,10 +79,15 @@ public class navigationActivity extends AppCompatActivity {
 
                         Deleteaccount();
                         break;
-                    case R.id.gmap:
+                    case R.id.updateprofile:
 
-                        Intent mintent = new Intent(navigationActivity.this, ResetpasswordActivity.class);
+                        Intent mintent = new Intent(navigationActivity.this, updateProfile.class);
                         startActivity(mintent);
+                        break;
+                    case R.id.tipsandtricks:
+
+                        Intent tipsintent = new Intent(navigationActivity.this, tipsAndTricks.class);
+                        startActivity(tipsintent);
                         break;
 
 

@@ -1,13 +1,13 @@
 package com.example.digitalalertsystem;
 
 public class User {
-    String fullname, userPhoneNo, email, emergencyPhoneNo1, emergencyPhoneNo2;
-
+    String fullname, userPhoneNo, email,  emergencyPhoneNo1, emergencyPhoneNo2;
+    //
     public User (){
 
     }
-
-    public User(String fullname, String userPhoneNo, String email, String emergencyPhoneNo1, String emergencyPhoneNo2) {
+    //
+    public User(String fullname, String userPhoneNo,String email, String emergencyPhoneNo1, String emergencyPhoneNo2) {
         this.fullname = fullname;
         this.userPhoneNo = userPhoneNo;
         this.email = email;

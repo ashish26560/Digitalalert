@@ -2,25 +2,36 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 <group android:checkableBehavior="single"
     android:id="@+id/group1">
-    <item
-        android:title="signout"
-        android:id="@+id/signout"/>
     <item android:id="@+id/nav_home"
 
-        android:title="home">
+        android:title="Home"
+        android:icon="@drawable/home_icon">
     </item>
-    <item android:id="@+id/tips"
 
-        android:title="tips and tricks">
+
+    <item android:id="@+id/tipsandtricks"
+
+        android:title="Tips and Tricks"
+        android:icon="@drawable/tipsandtricks_icon">
     </item>
+
+
+    <item android:id="@+id/updateprofile"
+
+        android:title="Update Profile"
+    android:icon="@drawable/updateprofile_icon">
+    </item>
+
 
     <item android:id="@+id/delaccount"
 
-        android:title="delete account">
-    </item> <item android:id="@+id/gmap"
-
-        android:title="gmap">
+        android:title="Delete Account"
+        android:icon="@drawable/deleteaccount_icon">
     </item>
+    <item
+        android:title="Log out"
+        android:id="@+id/signout"
+        android:icon="@drawable/logout_icon"/>
 </group>
 
 

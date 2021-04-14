@@ -8,6 +8,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.util.Log;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -68,6 +70,7 @@ public class mainActivity extends navigationActivity implements
 
     String phoneNumber1;
     String phoneNumber2;
+    String fullname;
     String myLatitude;
     String myLongitude;
     String message;
@@ -152,7 +155,7 @@ public class mainActivity extends navigationActivity implements
                 if (userprofile != null) {
                     phoneNumber1 = userprofile.emergencyPhoneNo1;
                     phoneNumber2 = userprofile.emergencyPhoneNo2;
-
+                    fullname = userprofile.fullname;
                     //textView2.setText(email);
                 }
             }
@@ -192,6 +195,7 @@ public class mainActivity extends navigationActivity implements
         map.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
         locationListener = new LocationListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onLocationChanged(Location location) {
                 try {
@@ -206,7 +210,15 @@ public class mainActivity extends navigationActivity implements
                     myLatitude = String.valueOf(location.getLatitude());
                     myLongitude = String.valueOf(location.getLongitude());
 
-                    message = "https://maps.google.com/?q=" + myLatitude + "," + myLongitude;
+                    //                    System.lineSeparator()
+
+                    message = "ALERT!!! " + System.lineSeparator() +
+                            "I Am ," + " " + fullname +" " + System.lineSeparator() +
+                            "Please! Reach To Me As Soon As Posible." + System.lineSeparator() +
+                            "Help Me." + System.lineSeparator() +
+                            "https://maps.google.com/?q=" + myLatitude + "," + myLongitude;
+
+//                    message = "ALERT!!! I AM IN ,"+fullname+ "PLEASE REACH TO ME AS SOON AS POSIBLE https://maps.google.com/?q=" + myLatitude + "," + myLongitude;
 //                    Log.d("DIGITAL ALERT", "the button is clicked" + message);
 //                    SmsManager smsManager = SmsManager.getDefault();
 //                    smsManager.sendTextMessage(phoneNumber,null,message,null,null);
