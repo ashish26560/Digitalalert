@@ -19,9 +19,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".tipsAndTricks" />
-        <activity android:name=".updateProfile"
-            android:parentActivityName=".mainActivity"/>
+        <activity
+            android:name=".updateProfile"
+            android:parentActivityName=".mainActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -35,15 +43,15 @@
             android:value="@string/google_maps_key" />
 
         <activity android:name=".navigationActivity" />
-        <activity android:name=".ResetpasswordActivity" />
-        <activity android:name=".RegisterActivity" />
+        <activity
+            android:name=".ResetpasswordActivity"
+            android:parentActivityName=".LoginActivity" />
+        <activity
+            android:name=".RegisterActivity"
+            android:parentActivityName=".LoginActivity" />
         <activity android:name=".mainActivity" />
         <activity android:name=".LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <uses-library

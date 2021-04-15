@@ -9,10 +9,11 @@
 
     <androidx.appcompat.widget.Toolbar
         app:title="Create New Account"
-        app:titleTextColor="#FFFFFF"
+        app:titleTextColor="#000000"
+        android:id="@+id/registertoolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#29AC9F"
+        android:background="@color/colorAccent"
         android:fitsSystemWindows="true" />
 
     <RelativeLayout

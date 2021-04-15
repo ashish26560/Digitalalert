@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,6 +24,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     public Button Register;
     public LinearLayout Login;
+    Toolbar registerToolbar;
     public EditText Email, Password, ReEnterPassword,FullName, UserPhoneNo, EmergencyPhoneNo1, EmergencyPhoneNo2;
     public FirebaseAuth Auth;
 
@@ -31,6 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
 //        LayoutInflater inflater = LayoutInflater.from(this);
 //        View v = inflater.inflate(R.layout.activity_register, null, false);
 //        drawer.addView(v, 0);
@@ -44,7 +47,15 @@ public class RegisterActivity extends AppCompatActivity {
         ReEnterPassword = findViewById(R.id.reEnterPasswordtxt);
         Register = findViewById(R.id.registerbtn);
         Login = findViewById(R.id.loginbtn);
+        registerToolbar=findViewById(R.id.registertoolbar);
         Auth = FirebaseAuth.getInstance();
+
+
+
+        setSupportActionBar(registerToolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         Register.setOnClickListener(new View.OnClickListener() {
             @Override
