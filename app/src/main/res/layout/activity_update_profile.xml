@@ -9,10 +9,10 @@
     <androidx.appcompat.widget.Toolbar
         app:title="Update profile"
         android:id="@+id/update"
-        app:titleTextColor="#FFFFFF"
+        app:titleTextColor="#000000"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#29AC9F"
+        android:background="@color/colorAccent"
         android:fitsSystemWindows="true" />
 
 
@@ -78,7 +78,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="updatebtn"
-            android:text="Update"></Button>
+            android:text="Update"
+
+            android:background="#970C0A0C"
+
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"></Button>
 
     </LinearLayout>
 

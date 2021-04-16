@@ -59,6 +59,8 @@ public class mainActivity extends navigationActivity implements
     private GoogleMap map;
     Button sendButton;
     Button callButton;
+    Button callButton2;
+    Button callFireStation;
 //    for geting the latitude and longitude we use location manager and location listner in oMmapReady
     private LocationManager locationManager;
     private LocationListener locationListener;
@@ -70,6 +72,7 @@ public class mainActivity extends navigationActivity implements
 
     String phoneNumber1;
     String phoneNumber2;
+    String fireStation="101";
     String fullname;
     String myLatitude;
     String myLongitude;
@@ -91,6 +94,8 @@ public class mainActivity extends navigationActivity implements
 //        buttons for sending location to defined number and call first emergency no
         sendButton = (Button) findViewById(R.id.sendButton);
         callButton = (Button) findViewById(R.id.callButton);
+        callButton2 = (Button) findViewById(R.id.callButton2);
+        callFireStation = (Button) findViewById(R.id.callFire);
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +107,7 @@ public class mainActivity extends navigationActivity implements
                 smsManager.sendTextMessage(phoneNumber2, null, message, null, null);
             }
         });
+
 
         callButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,6 +129,47 @@ public class mainActivity extends navigationActivity implements
 //                    ActivityCompat.requestPermissions(mainActivity.this, new String[]{Manifest.permission.CALL_PHONE},123);
 
                 }
+            }
+        });
+
+        callButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ActivityCompat.checkSelfPermission(mainActivity.this, Manifest.permission.CALL_PHONE) ==
+                        PackageManager.PERMISSION_GRANTED) {
+
+                    Intent callIntent2 = new Intent(Intent.ACTION_CALL);
+                    callIntent2.setData(Uri.parse("tel:" + phoneNumber2));//change the number.
+                    startActivity(callIntent2);
+                }
+//                asking for permission
+                else {
+                    ActivityCompat.requestPermissions(mainActivity.this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_PHONE_CALL);
+
+//                    ActivityCompat.requestPermissions(mainActivity.this, new String[]{Manifest.permission.CALL_PHONE},123);
+
+                }
+
+            }
+        });
+        callFireStation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ActivityCompat.checkSelfPermission(mainActivity.this, Manifest.permission.CALL_PHONE) ==
+                        PackageManager.PERMISSION_GRANTED) {
+
+                    Intent callIntent2 = new Intent(Intent.ACTION_CALL);
+                    callIntent2.setData(Uri.parse("tel:" + fireStation));//change the number.
+                    startActivity(callIntent2);
+                }
+//                asking for permission
+                else {
+                    ActivityCompat.requestPermissions(mainActivity.this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_PHONE_CALL);
+
+//                    ActivityCompat.requestPermissions(mainActivity.this, new String[]{Manifest.permission.CALL_PHONE},123);
+
+                }
+
             }
         });
 

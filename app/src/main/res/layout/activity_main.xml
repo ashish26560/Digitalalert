@@ -11,7 +11,7 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_marginTop="50dp"
         android:layout_width="match_parent"
-        android:layout_height="550dp"
+        android:layout_height="450dp"
 
         tools:layout="@layout/activity_navigation" />
     <RelativeLayout
@@ -41,6 +41,30 @@
             android:layout_marginLeft="37dp"
             android:layout_marginTop="669dp"
             android:text="call to emergency no" />
+
+        <Button
+            android:id="@+id/callFire"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="247dp"
+            android:layout_marginLeft="247dp"
+            android:layout_marginTop="674dp"
+            android:text="Call to Fire Station" />
+
+        <Button
+            android:id="@+id/callButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="211dp"
+            android:layout_marginLeft="211dp"
+            android:layout_marginTop="616dp"
+            android:text="call to emergency no 2 " />
     </RelativeLayout>
 
 
