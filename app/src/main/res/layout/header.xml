@@ -2,18 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/ThemeOverlay.AppCompat.Dark"
     android:layout_width="match_parent"
-    android:layout_height="172dp"
+    android:layout_height="180dp"
     android:orientation="vertical"
     android:background="#0E0E0E"
     android:padding="25dp">
-
     <TextView
+
         style="@style/TextAppearance.AppCompat.Body1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="78dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="55dp"
+        android:text="Hello,"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/username"
+        style="@style/TextAppearance.AppCompat.Body1"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="50dp"
         android:text="user name"
         android:textColor="#FFFFFF"
-        android:textSize="40sp" />
+        android:textSize="30sp" />
 
 </LinearLayout>
