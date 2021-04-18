@@ -11,7 +11,7 @@
 
     <item android:id="@+id/tipsandtricks"
 
-        android:title="Tips and Tricks"
+        android:title="Fire Safety Tips"
         android:icon="@drawable/tipsandtricks_icon">
     </item>
 

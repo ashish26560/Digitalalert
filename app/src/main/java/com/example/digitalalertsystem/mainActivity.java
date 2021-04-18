@@ -22,6 +22,7 @@ import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
@@ -97,6 +98,7 @@ public class mainActivity extends navigationActivity implements
         callButton2 = (Button) findViewById(R.id.callButton2);
         callFireStation = (Button) findViewById(R.id.callFire);
 
+
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,6 +107,8 @@ public class mainActivity extends navigationActivity implements
                 SmsManager smsManager = SmsManager.getDefault();
                 smsManager.sendTextMessage(phoneNumber1, null, message, null, null);
                 smsManager.sendTextMessage(phoneNumber2, null, message, null, null);
+                Toast.makeText(mainActivity.this, "Message sent", Toast.LENGTH_LONG).show();
+
             }
         });
 
@@ -228,7 +232,7 @@ public class mainActivity extends navigationActivity implements
      * installed Google Play services and returned to the app.
      */
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(final GoogleMap googleMap) {
 //        mMap = googleMap;
         map = googleMap;
         map.setOnMyLocationButtonClickListener(this);
@@ -247,11 +251,15 @@ public class mainActivity extends navigationActivity implements
             public void onLocationChanged(Location location) {
                 try {
                     latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                    map.clear();
                     map.addMarker(new MarkerOptions().position(latLng).title("My Position"));
 //
 //
+                    CameraUpdate cameraPosition = CameraUpdateFactory.newLatLngZoom(latLng, 16);
+                    map.moveCamera(cameraPosition);
+                    map.animateCamera(cameraPosition);
 //
-                    map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+//                    map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 
                     //phoneNumber = "10 digit number";
                     myLatitude = String.valueOf(location.getLatitude());
@@ -261,7 +269,7 @@ public class mainActivity extends navigationActivity implements
 
                     message = "ALERT!!! " + System.lineSeparator() +
                             "I Am ," + " " + fullname +" " + System.lineSeparator() +
-                            "Please! Reach To Me As Soon As Posible." + System.lineSeparator() +
+                            "Please! Reach To Me As Soon As Possible." + System.lineSeparator() +
                             "Help Me." + System.lineSeparator() +
                             "https://maps.google.com/?q=" + myLatitude + "," + myLongitude;
 

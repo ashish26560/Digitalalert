@@ -26,7 +26,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".tipsAndTricks" />
+        <activity android:name=".tipsAndTricks"
+            android:parentActivityName=".mainActivity"/>
         <activity
             android:name=".updateProfile"
             android:parentActivityName=".mainActivity" />
@@ -40,7 +41,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="AIzaSyDCp70gFTGSlZ0rtVWeIHv9Uc_uAylY0iU" />
 
         <activity android:name=".navigationActivity" />
         <activity

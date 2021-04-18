@@ -14,136 +14,142 @@
         android:layout_height="450dp"
 
         tools:layout="@layout/activity_navigation" />
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:paddingHorizontal="20dp"
+        android:gravity="center">
+
+
+
+            <Button
+                android:id="@+id/callButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/call_emergency_no1"
+                android:text="Call Number 1"
+                android:layout_marginTop="515dp"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="18dp" />
+
+            <Button
+                android:id="@+id/callButton2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/call_emergency_no2"
+                android:text="Call Number 2"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="18dp" />
+
+
 
         <Button
             android:id="@+id/sendButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="37dp"
-            android:layout_marginLeft="37dp"
-            android:layout_marginTop="615dp"
-            android:text="Send Location" />
-
-        <Button
-            android:id="@+id/callButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="37dp"
-            android:layout_marginLeft="37dp"
-            android:layout_marginTop="669dp"
-            android:text="call to emergency no" />
+            android:background="@drawable/send_location_btn"
+            android:layout_marginBottom="13dp"
+            android:text="Send Location"
+            android:textSize="18dp"
+            android:textColor="#FFFFFF"
+            android:textAllCaps="false"/>
 
         <Button
             android:id="@+id/callFire"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="247dp"
-            android:layout_marginLeft="247dp"
-            android:layout_marginTop="674dp"
-            android:text="Call to Fire Station" />
-
-        <Button
-            android:id="@+id/callButton2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="211dp"
-            android:layout_marginLeft="211dp"
-            android:layout_marginTop="616dp"
-            android:text="call to emergency no 2 " />
-    </RelativeLayout>
+            android:background="@drawable/call_fire_station_btn"
+            android:paddingHorizontal="15dp"
+            android:layout_marginBottom="10dp"
+            android:text="Call Fire Station"
+            android:textSize="18dp"
+            android:textColor="#FFFFFF"
+            android:textAllCaps="false"/>
+    </LinearLayout>
 
 
 </FrameLayout>
-<!--    <Button-->
-<!--        android:id="@+id/createAccount"-->
-<!--        android:layout_width="210dp"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:text="Create new account"-->
-<!--        android:textColor="#171616"-->
-<!--        app:backgroundTint="#BDBDBD"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.497"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/imageView2"-->
-<!--        app:layout_constraintVertical_bias="0.448" />-->
+    <!--    <Button-->
+    <!--        android:id="@+id/createAccount"-->
+    <!--        android:layout_width="210dp"-->
+    <!--        android:layout_height="50dp"-->
+    <!--        android:text="Create new account"-->
+    <!--        android:textColor="#171616"-->
+    <!--        app:backgroundTint="#BDBDBD"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.497"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/imageView2"-->
+    <!--        app:layout_constraintVertical_bias="0.448" />-->
 
-<!--    <Button-->
-<!--        android:id="@+id/Register"-->
-<!--        android:layout_width="210dp"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:ems="15"-->
-<!--        android:text="Gmap"-->
-<!--        app:backgroundTint="#2196F3"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/createAccount" />-->
+    <!--    <Button-->
+    <!--        android:id="@+id/Register"-->
+    <!--        android:layout_width="210dp"-->
+    <!--        android:layout_height="50dp"-->
+    <!--        android:layout_marginTop="20dp"-->
+    <!--        android:ems="15"-->
+    <!--        android:text="Gmap"-->
+    <!--        app:backgroundTint="#2196F3"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/createAccount" />-->
 
-<!--    <Button-->
-<!--        android:id="@+id/callAmbulance"-->
-<!--        android:layout_width="210dp"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:ems="15"-->
-<!--        android:text="Call Ambulance"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.502"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/Register" />-->
+    <!--    <Button-->
+    <!--        android:id="@+id/callAmbulance"-->
+    <!--        android:layout_width="210dp"-->
+    <!--        android:layout_height="50dp"-->
+    <!--        android:layout_marginTop="20dp"-->
+    <!--        android:ems="15"-->
+    <!--        android:text="Call Ambulance"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.502"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/Register" />-->
 
-<!--    <ImageView-->
-<!--        android:id="@+id/imageView2"-->
-<!--        android:layout_width="409dp"-->
-<!--        android:layout_height="235dp"-->
-<!--        android:foregroundGravity="center_horizontal"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.147"-->
-<!--        app:srcCompat="@mipmap/ic_launcher_foreground"-->
-<!--        tools:layout_editor_absoluteX="2dp" />-->
+    <!--    <ImageView-->
+    <!--        android:id="@+id/imageView2"-->
+    <!--        android:layout_width="409dp"-->
+    <!--        android:layout_height="235dp"-->
+    <!--        android:foregroundGravity="center_horizontal"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        app:layout_constraintVertical_bias="0.147"-->
+    <!--        app:srcCompat="@mipmap/ic_launcher_foreground"-->
+    <!--        tools:layout_editor_absoluteX="2dp" />-->
 
-<!--    <TextView-->
-<!--        android:id="@+id/textView"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="268dp"-->
-<!--        android:gravity="center_horizontal"-->
-<!--        android:text="Create Emergency Profile"-->
-<!--        android:textSize="20sp"-->
-<!--        android:textStyle="bold"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.497"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/imageView2" />-->
+    <!--    <TextView-->
+    <!--        android:id="@+id/textView"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="268dp"-->
+    <!--        android:gravity="center_horizontal"-->
+    <!--        android:text="Create Emergency Profile"-->
+    <!--        android:textSize="20sp"-->
+    <!--        android:textStyle="bold"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.497"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="@+id/imageView2" />-->
 
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:gravity="center_horizontal"-->
-<!--        android:text="for quick access during an emergency, add emergency contacts and medical services"-->
-<!--        android:textSize="15sp"-->
-<!--        android:textStyle="bold"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.0"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textView"-->
-<!--        app:layout_constraintVertical_bias="0.066" />-->
+    <!--    <TextView-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:gravity="center_horizontal"-->
+    <!--        android:text="for quick access during an emergency, add emergency contacts and medical services"-->
+    <!--        android:textSize="15sp"-->
+    <!--        android:textStyle="bold"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.0"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/textView"-->
+    <!--        app:layout_constraintVertical_bias="0.066" />-->
 
-<!--</androidx.constraintlayout.widget.ConstraintLayout>-->
+    <!--</androidx.constraintlayout.widget.ConstraintLayout>-->

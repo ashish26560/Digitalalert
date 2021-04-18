@@ -24,7 +24,6 @@
         android:padding="30dp">
 
 
-
         <!--    <TextView-->
         <!--        android:layout_width="wrap_content"-->
         <!--        android:text="Welcome-->
@@ -40,9 +39,17 @@
         <!--        android:clickable="false"-->
         <!--        />-->
 
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="400dp"
+            android:alpha=".2"
+            app:srcCompat="@drawable/firealarm_logo" />
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
             android:id="@+id/fullNametxt"
             android:hint="Your Full Name"
             android:textColor="#1E0F0F"
@@ -152,8 +159,6 @@
                 android:textStyle="bold" />
 
         </LinearLayout>
-
-
 
 
     </RelativeLayout>

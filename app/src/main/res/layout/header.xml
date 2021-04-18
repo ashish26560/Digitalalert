@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/ThemeOverlay.AppCompat.Dark"
     android:layout_width="match_parent"
-    android:layout_height="180dp"
+    android:layout_height="200dp"
     android:orientation="vertical"
     android:background="#0E0E0E"
     android:padding="25dp">
@@ -10,8 +10,8 @@
 
         style="@style/TextAppearance.AppCompat.Body1"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_marginTop="55dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:text="Hello,"
         android:textColor="#FFFFFF"
         android:textSize="30sp" />
@@ -20,8 +20,7 @@
         android:id="@+id/username"
         style="@style/TextAppearance.AppCompat.Body1"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginBottom="50dp"
+        android:layout_height="wrap_content"
         android:text="user name"
         android:textColor="#FFFFFF"
         android:textSize="30sp" />

@@ -12,7 +12,7 @@ public class tipsAndTricks extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_tips_and_tricks);
+        setContentView(R.layout.activity_tips_and_tricks);
 //        LayoutInflater inflater = LayoutInflater.from(this);
 //        View v = inflater.inflate(R.layout.activity_tips_and_tricks, null, false);
 //        drawer.addView(v, 0);

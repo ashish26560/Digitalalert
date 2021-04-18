@@ -88,27 +88,34 @@ public class updateProfile extends AppCompatActivity {
     }
 
     public void updatebtn(View view) {
+        if(isUserPhoneNoChanged()||isFullnameChanged()||isEmegencyNumber2Changed()||isEmegencyNumber1Changed()){
         if (isFullnameChanged()) {
-            Toast.makeText(updateProfile.this, "Data has been Updated", Toast.LENGTH_LONG).show();
+            Toast.makeText(updateProfile.this, "Full name has been Updated", Toast.LENGTH_LONG).show();
 //            openHome();
-        } else {
-            Toast.makeText(updateProfile.this, "Data is same and can not be updated  ", Toast.LENGTH_LONG).show();
         }
+//        else {
+//            Toast.makeText(updateProfile.this, "Data is same and can not be updated  ", Toast.LENGTH_LONG).show();
+//        }
         if ( isUserPhoneNoChanged()) {
-            Toast.makeText(updateProfile.this, "Data has been Updated", Toast.LENGTH_LONG).show();
+            Toast.makeText(updateProfile.this, "mobile no. has been Updated", Toast.LENGTH_LONG).show();
 //            openHome();
-        } else {
-            Toast.makeText(updateProfile.this, "Data is same and can not be updated  ", Toast.LENGTH_LONG).show();
         }
+//        else {
+//            Toast.makeText(updateProfile.this, "Data is same and can not be updated  ", Toast.LENGTH_LONG).show();
+//        }
         if (  isEmegencyNumber1Changed() ) {
-            Toast.makeText(updateProfile.this, "Data has been Updated", Toast.LENGTH_LONG).show();
+            Toast.makeText(updateProfile.this, "Emerg. no1. has been Updated", Toast.LENGTH_LONG).show();
 //            openHome();
-        } else {
-            Toast.makeText(updateProfile.this, "Data is same and can not be updated  ", Toast.LENGTH_LONG).show();
-        }if ( isEmegencyNumber2Changed()) {
-            Toast.makeText(updateProfile.this, "Data has been Updated", Toast.LENGTH_LONG).show();
+        }
+//        else {
+//            Toast.makeText(updateProfile.this, "Data is same and can not be updated  ", Toast.LENGTH_LONG).show();
+//        }
+        if ( isEmegencyNumber2Changed()) {
+            Toast.makeText(updateProfile.this, "Emerg. no2. has been Updated", Toast.LENGTH_LONG).show();
 //            openHome();
-        } else {
+        }
+        }
+        else {
             Toast.makeText(updateProfile.this, "Data is same and can not be updated  ", Toast.LENGTH_LONG).show();
         }
     }
